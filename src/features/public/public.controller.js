@@ -1,14 +1,28 @@
 const Data = require('../../shared/resources/data');
+const Contact = require('../../shared/db/mongodb/schemas/contact.Schema');
+const validator = require('validator');
 
-const contactUs = (req,res) => {
-  const firstName = req.body.first_name;
-  const lastName = req.body.last_name;
-  const message = req.body.message;
+const contactUs = async (req,res) => {
 
-  const responseMessage = `Message received from ${firstName} ${lastName}`;
+  // Vérifier que tous les champs sont présents
+  if (!req.body.fullname || !req.body.email || !req.body.phoneNumber || !req.body.message) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  if (!validator.isEmail(req.body.email)) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+
+  if (!validator.isMobilePhone(req.body.phoneNumber)) {
+    return res.status(400).json({ error: 'Invalid phone number' });
+  }
+
+  const data = await Contact.create(req.body)
+
+  const responseMessage = `Message received from ${req.body.fullname}`;
 
   console.log(responseMessage);
-  res.send(responseMessage);
+  res.send(data);
 };
 
 const calculateResidentialQuote = (req,res) => {
