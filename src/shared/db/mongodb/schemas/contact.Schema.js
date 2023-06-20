@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const validator = require('validator');
 
-const contactSchema = new mongoose.Schema({
+const ContactSchema = new mongoose.Schema({
     fullname: {
       type: String,
       required: true,
@@ -9,21 +8,12 @@ const contactSchema = new mongoose.Schema({
     email: {
       type: String,
       required: true,
-      validate: {
-        validator: validator.isEmail,
-        message: 'Invalid email address',
-      },
     },
-    phoneNumber: {
+    phone: {
       type: String,
       required: true,
-      validate: {
-        validator: validator.isMobilePhone,
-        message: 'Invalid phone number',
-        options: 'any',
-      },
     },
-    companyname: {
+    company_name: {
       type: String,
       required: true,
     },
@@ -44,8 +34,10 @@ const contactSchema = new mongoose.Schema({
       required: true,
     },
     file: {
-      type: String,
-    }
+        data: Buffer,
+        type: String,
+        require: false
+    },
   });
 
-  module.exports = mongoose.model('Contact', contactSchema)
+  module.exports = mongoose.model('Contact', ContactSchema)
