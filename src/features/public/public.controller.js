@@ -3,9 +3,8 @@ const Contact = require('../../shared/db/mongodb/schemas/contact.Schema');
 const validator = require('validator');
 
 const contactUs = async (req,res) => {
-
   // Vérifier que tous les champs sont présents
-  if (!req.body.fullname || !req.body.email || !req.body.phoneNumber || !req.body.message) {
+  if (!req.body.fullname || !req.body.email || !req.body.phone || !req.body.message) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -13,12 +12,16 @@ const contactUs = async (req,res) => {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
-  if (!validator.isMobilePhone(req.body.phoneNumber)) {
+  if (!validator.isMobilePhone(req.body.phone)) {
     return res.status(400).json({ error: 'Invalid phone number' });
   }
 
-  const data = await Contact.create(req.body)
-
+  console.log(req.body)
+  //const data = await Contact.create(req.body)
+  const data = await Contact(req.body)
+  await data.save()
+  console.log(data)
+ 
   const responseMessage = `Message received from ${req.body.fullname}`;
 
   console.log(responseMessage);
