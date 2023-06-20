@@ -17,12 +17,12 @@ var _hash = window.location.hash;
 
 let contact_form = document.getElementById("contact-form")
 
-let fullname_select = document.querySelector('[name="fullName"]')
+let fullname_select = document.querySelector('[name="name"]')
 let email_select = document.querySelector('[name="email"]')
 let phone_select = document.querySelector('[name="phone"]')
-let company_name_select = document.querySelector('[name="companyName"]')
-let project_name_select = document.querySelector('[name="projectName"]')
-let project_description_select = document.querySelector('[name="projectDescription"]')
+let company_name_select = document.querySelector('[name="company_name"]')
+let project_name_select = document.querySelector('[name="project_name"]')
+let project_description_select = document.querySelector('[name="project_description"]')
 let department_select = document.querySelector('[name="department"]')
 let message_select = document.querySelector('[name="message"]')
 let attachment_select = document.querySelector('[name="attachment"]')
@@ -68,3 +68,4 @@ contact_form.addEventListener("submit", async(e) => {
 	    console.error('Error:', error);
 	  });
 });
+
