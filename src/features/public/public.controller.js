@@ -81,7 +81,7 @@ const calculateQuote = (req, res) => {
   }
   const totalCost = calcInstallFee(numElevators, tier);
 
-  // format response
+  // response
   res.send({
     elevators_required: numElevators,
     cost: totalCost
