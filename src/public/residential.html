@@ -504,33 +504,35 @@
 				<h2 class="m-0" id="agents" style="padding-bottom: 1%;">
 				  <span style="color:rgb(170, 69, 69)">RocketElevators Best Agents</span>
 				</h2>
-
-				<table id="tableagent" class="table">
-					<thead>
-					  <tr id="colonne">
-						<th scope="col">#</th>
-						<th scope="col"><button id="first_name" class="dropdown-toggle">First Name</button></th>
-						<th scope="col"><button id="last_name" class="dropdown-toggle">Last Name</button></th>
-						<th scope="col"><button id="fee" class="dropdown-toggle">Fee</button></th>
-						<th scope="col"><button id="rating" class="dropdown-toggle">Rating</button></th>
-						<th scope="col">
-							<div id="menu deroulant" class="dropdown">
-								<button style="background-color:rgb(170, 69, 69)" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Region
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" href="#" data-region="all">All Regions</a>
-									<a class="dropdown-item" href="#" data-region="north">North</a>
-									<a class="dropdown-item" href="#" data-region="south">South</a>
-								</div>
-							</div>
-					  </tr>
-					</thead>
-					<tbody id="agentTableBody">
-					  <!-- Dynamic content for the agents will be generated here -->
-					</tbody>
-				  </table>
-			</div>
+			  
+				<table id="tableagent" class="table table-sortable">
+				  <thead>
+					<tr id="colonne">
+					  <th scope="col">#</th>
+					  <th scope="col" data-sortable="true" data-column="first_name"><button id="first_name" class="dropdown-toggle">First Name</button></th>
+					  <th scope="col" data-sortable="true" data-column="last_name"><button id="last_name" class="dropdown-toggle">Last Name</button></th>
+					  <th scope="col" data-sortable="true" data-column="rating"><button id="rating" class="dropdown-toggle">Rating</button></th>
+					  <th scope="col" data-sortable="true" data-column="fee"><button id="fee" class="dropdown-toggle">Fee</button></th>
+					  <th scope="col">
+						<div id="menu deroulant" class="dropdown">
+						  <button style="background-color:rgb(170, 69, 69)" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Region
+						  </button>
+						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a class="dropdown-item" href="#" data-region="all">All Regions</a>
+							<a class="dropdown-item" href="#" data-region="north">North</a>
+							<a class="dropdown-item" href="#" data-region="south">South</a>
+						  </div>
+						</div>
+					  </th>
+					</tr>
+				  </thead>
+				  <tbody id="agentTableBody">
+					<!-- Dynamic content for the agents will be generated here -->
+				  </tbody>
+				</table>
+			  </div>
+			  
 
 			<!-- Tableau pour AGENTS -->
 
@@ -604,6 +606,7 @@
 		<!-- SCRIPT -->
 		<script src="assets/js/scripts.js"></script>
 		<script src="assets/js/agents.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/table-sort-js/table-sort.js"></script>
 
 		<!-- OPEN MODALS SCRIPT -->
 		<script type="text/javascript">
