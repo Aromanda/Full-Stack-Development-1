@@ -20,11 +20,19 @@ function populateAgentTable(data) {
         style: "currency",
         currency: "USD"
       });
+      var colors = "";
+    if (agent.rating === 100) {
+      colors = "color_green";
+    } else if (agent.rating >= 90) {
+      colors = "color_blue";
+    } else if (agent.rating < 90) {
+      colors = "color_purple";
+    }
       row.innerHTML = `
         <th scope="row">${index + 1}</th>
         <td>${agent.first_name}</td>
         <td>${agent.last_name}</td>
-        <td>${agent.rating}</td>
+        <td class="${colors}">${agent.rating}</td>
         <td>${formattedFee}</td>
         <td>${agent.region}</td>
       `;
