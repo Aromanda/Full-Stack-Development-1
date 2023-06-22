@@ -16,12 +16,16 @@ function populateAgentTable(data) {
   
     data.forEach(function(agent, index) {
       var row = document.createElement("tr");
+      var formattedFee = agent.fee.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+      });
       row.innerHTML = `
         <th scope="row">${index + 1}</th>
         <td>${agent.first_name}</td>
         <td>${agent.last_name}</td>
         <td>${agent.rating}</td>
-        <td>${agent.fee}</td>
+        <td>${formattedFee}</td>
         <td>${agent.region}</td>
       `;
       tableBody.appendChild(row);
@@ -34,7 +38,7 @@ function populateAgentTable(data) {
       .then(data => {
         console.log(data.object)
         const agents = data.object
-        var filteredAgents = agents.filter(agent => agent.rating >= 95);
+        var filteredAgents = agents.filter(agent => agent.rating >= 0);
   
         if (region !== "all") {
           filteredAgents = filteredAgents.filter(agent => agent.region.toLowerCase() === region.toLowerCase());
@@ -44,8 +48,8 @@ function populateAgentTable(data) {
       })
       .catch(error => console.error("Error:", error));
   }
-  
-  // Function to add click event listeners to dropdown menu items
+
+  // AddEventLiteners DropdownMenu
   function addDropdownEventListeners() {
     var dropdownItems = document.querySelectorAll(".dropdown-item");
   
@@ -62,6 +66,39 @@ function populateAgentTable(data) {
   function initializePage() {
     filterAgentsByRegion("all");
     addDropdownEventListeners();
+
+    var sortableColumns = document.querySelectorAll('[data-sortable="true"]');
+
+  sortableColumns.forEach(column => {
+    column.addEventListener("click", function() {
+      var columnId = this.getAttribute("data-column");
+      sortAgentsByColumn(columnId);
+    });
+  });
+  }
+
+  function sortAgentsByColumn(column) {
+    fetch("http://localhost:3004/agents")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.object);
+        const agents = data.object;
+  
+        agents.sort((a, b) => {
+          if (column === "first_name") {
+            return a.first_name.localeCompare(b.first_name);
+          } else if (column === "last_name") {
+            return a.last_name.localeCompare(b.last_name);
+          } else if (column === "fee") {
+            return a.fee - b.fee;
+          } else if (column === "rating") {
+            return a.rating - b.rating;
+          }
+        });
+  
+        populateAgentTable(agents);
+      })
+      .catch(error => console.error("Error:", error));
   }
   
   // Call the initializePage function when the page has finished loading
