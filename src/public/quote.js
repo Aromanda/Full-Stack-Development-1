@@ -1,3 +1,5 @@
+const {unitPrices, installPercentFees} = require ('../shared/resources/data');
+
 "use strict";
 
 let buildingType_select = document.getElementById("building-type");
@@ -57,16 +59,6 @@ const buildingTypeFields = {
     industrial: [
         "number-of-elevators",
     ]
-};
-const unitPrices = {
-    standard: 8000,
-    premium: 12000,
-    excelium: 15000,
-};
-const installPercentFees = {
-    standard: 10,
-    premium: 15,
-    excelium: 20,
 };
 
 // CALCULATIONS
@@ -151,8 +143,8 @@ function displayElvCalcResult(buildingType) {
 }
 
 function displayPricing(productLine, numElv) {
-    let unitPrice = unitPrices[productLine];
-    let installPercentFee = installPercentFees[productLine];
+    let unitPrice = data.unitPrices[productLine];
+    let installPercentFee = data.installPercentFees[productLine];
     let subtotal = unitPrice * numElv;
     let totalInstallFee = calcInstallFee(subtotal, installPercentFee);
     let totalPrice = subtotal + totalInstallFee;
