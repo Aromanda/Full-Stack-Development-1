@@ -23,6 +23,7 @@ const validateContactdata = (req, res, next) => {
   next();
 }
 
+//const buildingType = (req, res, next) => 
 
 const adminRoutes = [
   '/email-list',
@@ -30,13 +31,13 @@ const adminRoutes = [
   '/calc-residential'
 ];
 
-const registerBaseMiddleWare = (app) => {
+/*const registerBaseMiddleWare = (app) => {
   app.use(Express.json());
   app.use(logger);
   app.use(checkAuthToken);
 };
 
-/*const logger = (req,res,next) => {
+const logger = (req,res,next) => {
   const message = `API call: ${req.method} on ${req.originalUrl} at ${new Date()}`
   console.log(message);
   next();
