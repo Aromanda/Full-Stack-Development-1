@@ -23,7 +23,15 @@ const validateContactdata = (req, res, next) => {
   next();
 }
 
-//const buildingType = (req, res, next) => 
+const validateBuildingType = (req, res, next) => {
+  const { buildingType } = req.params;
+console.log(!validator.isIn(buildingType, ['commercial', 'residential', 'industrial']))
+  if (!validator.isIn(buildingType, ['commercial', 'residential', 'industrial'])){
+    return res.status(400).json({ error: "Invalid building type"});
+  }
+  next();
+};
+
 
 const adminRoutes = [
   '/email-list',
@@ -62,4 +70,4 @@ const checkAuthToken = (req,res,next) => {
   next();
 };*/
 
-module.exports = {validateContactdata, decMiddleWare};
+module.exports = {validateContactdata, decMiddleWare, validateBuildingType};
