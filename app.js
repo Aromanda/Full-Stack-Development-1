@@ -3,10 +3,10 @@ const Express = require('express');
 const app = Express();
 const port = process.env.PORT || 3004;
 const cors = require('cors')
-
+const decMiddleWare = require ('./src/shared/middleware/base-middleware');
 
 const MongoManager = require('./src/shared/db/mongodb/mongo-manager')
-const MiddleWare = require('./src/shared/middleware/base-middleware');
+//const MiddleWare = require('./src/shared/middleware/base-middleware');
 const HealthRoutes = require('./src/routes/health.routes');
 const AdminRoutes = require('./src/routes/admin.routes');
 const PublicRoutes = require('./src/routes/public.routes');
@@ -17,8 +17,9 @@ const regionRouter = require('./src/routes/region.routes')
 app.use(Express.static('./src/public')) //serves our static genesis project
 app.use(Express.json())
 app.use(cors());
+app.use(decMiddleWare.decMiddleWare);
 
-MiddleWare.registerBaseMiddleWare(app)
+//MiddleWare.registerBaseMiddleWare(app)
 HealthRoutes.registerHealthRoutes(app);
 AdminRoutes.registerAdminRoutes(app);
 PublicRoutes.registerPublicRoutes(app);
