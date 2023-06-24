@@ -1,6 +1,37 @@
 require('dotenv').config();
 const Express = require('express');
 const app = Express();
+const validator = require('validator');
+
+const decMiddleWare = (req, res, next) => {
+  console.log('Running middleware for:', req.path);
+  next();
+}
+
+const validateContactdata = (req, res, next) => {
+  const { fullname, email, phone, message } = req.body;
+
+  if (!fullname || !phone || !email || !message) {
+    return res.status(400).json({ error: "All fields are required"})
+  }
+  if (!validator.isEmail(email)) {
+    return res.status(400).json({ error: "Invalid email address" });
+  }
+  if (!validator.isMobilePhone(phone)) {
+    return res.status(400).json({ error: "Invalid phone number" });
+  }
+  next();
+}
+
+const validateBuildingType = (req, res, next) => {
+  const { buildingType } = req.params;
+console.log(!validator.isIn(buildingType, ['commercial', 'residential', 'industrial']))
+  if (!validator.isIn(buildingType, ['commercial', 'residential', 'industrial'])){
+    return res.status(400).json({ error: "Invalid building type"});
+  }
+  next();
+};
+
 
 const adminRoutes = [
   '/email-list',
@@ -8,7 +39,7 @@ const adminRoutes = [
   '/calc-residential'
 ];
 
-const registerBaseMiddleWare = (app) => {
+/*const registerBaseMiddleWare = (app) => {
   app.use(Express.json());
   app.use(logger);
   app.use(checkAuthToken);
@@ -37,6 +68,6 @@ const checkAuthToken = (req,res,next) => {
     return;
   }
   next();
-};
+};*/
 
-module.exports = {registerBaseMiddleWare};
+module.exports = {validateContactdata, decMiddleWare, validateBuildingType};

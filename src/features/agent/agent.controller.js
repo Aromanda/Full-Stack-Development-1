@@ -9,7 +9,7 @@ const createAgent = asyncWrapper( async (req,res) => {
 const getAllAgents = asyncWrapper( async (req,res) => {
   const agents = await Agent.find({});
   const agentsAlpha = agents.sort((a, b) => a.last_name.localeCompare(b.last_name));
-  res.status(200).json({ data: agentsAlpha });
+  res.status(200).json({ object: agentsAlpha });
 });
 
 const getAgentsByRegion = asyncWrapper( async (req,res) => {
