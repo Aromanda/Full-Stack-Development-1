@@ -17,15 +17,15 @@ var _hash = window.location.hash;
 
 let contact_form = document.getElementById("contact-form")
 
-let fullname_select = document.querySelector('[name="name"]')
-let email_select = document.querySelector('[name="email"]')
-let phone_select = document.querySelector('[name="phone"]')
-let company_name_select = document.querySelector('[name="company_name"]')
-let project_name_select = document.querySelector('[name="project_name"]')
-let project_description_select = document.querySelector('[name="project_description"]')
-let department_select = document.querySelector('[name="department"]')
-let message_select = document.querySelector('[name="message"]')
-let attachment_select = document.querySelector('[name="attachment"]')
+let fullname_select = document.querySelector('[id="name"]')
+let email_select = document.querySelector('[id="email"]')
+let phone_select = document.querySelector('[id="phone"]')
+let company_name_select = document.querySelector('[id="company_name"]')
+let project_name_select = document.querySelector('[id="project_name"]')
+let project_description_select = document.querySelector('[id="project_description"]')
+let department_select = document.querySelector('[id="department"]')
+let message_select = document.querySelector('[id="message"]')
+let attachment_select = document.querySelector('[id="attachment"]')
 
 contact_form.addEventListener("submit", async(e) => { 
 	e.preventDefault();
@@ -40,32 +40,25 @@ contact_form.addEventListener("submit", async(e) => {
 		project_desc: project_description_select.value,
 		department: department_select.value,
 		message: message_select.value,
-		file: attachment_select.value,
+		// file: attachment_select.value,
+		file: null,
 	};
-	console.log(data)
-	
-	await fetch('http://localhost:3004/api/contact', {
+
+	await fetch('http://localhost:3004/contact', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(data),
 	})
-	.then((response) => {
-		if (response.ok) {
-			console.log(response)
-			console.log('This is the response status code : ', response.status);
+		.then((response) => response.json())
+		.then((data) => {
+			console.log('Success:', data);
 			alert('Success:' + JSON.stringify(data));
-		} else {
-			console.error('Error:', response.status)
-		}
-	  })
-	  .then((data) => {
-	    console.log('Success:', data);
-	  })
-	  .catch((error) => {
-		alert('Error:' + error);
-	    console.error('Error:', error);
-	  });
+		})
+		.catch((error) => {
+			console.error('Error:', error);
+			alert('Error:' + error);
+		});
 });
 
